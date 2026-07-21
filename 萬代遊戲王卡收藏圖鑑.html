@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>萬代遊戲王卡收藏圖鑑（Bandai #001–#118 + TA1–TA5 全 123 張）</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --panel2:#0f1420; --text:#e6edf3; --muted:#9aa4b2;
+      --accent:#5eead4; --accent2:#60a5fa; --danger:#fb7185;
+      --cardW:160px; --radius:14px;
+    }
+    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: radial-gradient(1200px 800px at 30% 0%, #18233a 0%, var(--bg) 55%); color:var(--text); }
+    header{ position: sticky; top:0; z-index: 10; backdrop-filter: blur(10px);
+      background: color-mix(in oklab, var(--bg) 70%, transparent); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .wrap{ max-width: 1200px; margin:0 auto; padding: 16px 16px 22px; }
+    h1{ font-size: 18px; margin: 0 0 6px; letter-spacing:.2px; }
+    .sub{ color: var(--muted); font-size: 13px; line-height:1.4; }
+    .toolbar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:12px; }
+    .pill{ background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
+      padding: 8px 10px; border-radius: 999px; display:flex; gap:10px; align-items:center; }
+    .pill label{ color: var(--muted); font-size: 12px; }
+    input[type="search"]{ width: 240px; max-width: 60vw; background: transparent; border: none; color: var(--text);
+      outline: none; font-size: 14px; }
+    select, button{ background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
+      color: var(--text); border-radius: 10px; padding: 9px 10px; font-size: 13px; cursor:pointer; }
+    button.primary{ border-color: color-mix(in oklab, var(--accent) 35%, rgba(255,255,255,.10));
+      background: color-mix(in oklab, var(--accent) 18%, rgba(255,255,255,.06)); }
+    button.danger{ border-color: color-mix(in oklab, var(--danger) 35%, rgba(255,255,255,.10));
+      background: color-mix(in oklab, var(--danger) 16%, rgba(255,255,255,.06)); }
+    main .wrap{ padding-top: 14px; }
+    .stats{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; color: var(--muted); font-size: 13px; margin: 10px 0 14px; }
+    .bar{ height: 10px; width: 240px; max-width: 70vw; border-radius: 999px; background: rgba(255,255,255,.08);
+      overflow:hidden; border: 1px solid rgba(255,255,255,.10); }
+    .bar > div{ height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.3s ease; }
+    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(var(--cardW), 1fr)); gap: 14px; }
+    .card{ background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.10); border-radius: var(--radius); overflow:hidden; cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25); position:relative; user-select:none; }
+    .card:hover{ transform: translateY(-2px); border-color: rgba(94,234,212,.35); box-shadow: 0 14px 42px rgba(0,0,0,.35); }
+    .thumb{ aspect-ratio: 3 / 4; width: 100%; background: linear-gradient(135deg, rgba(96,165,250,.18), rgba(94,234,212,.12));
+      display:flex; align-items:center; justify-content:center; position:relative; }
+    .thumb img{ width: 100%; height: 100%; object-fit: cover; display:block; }
+    .thumb .placeholder{ padding: 10px; color: rgba(255,255,255,.75); text-align:center; font-size: 12px; line-height:1.35; }
+    .meta{ padding: 10px 10px 12px; display:flex; flex-direction:column; gap:6px; background: color-mix(in oklab, var(--panel2) 70%, transparent); }
+    .title{ font-size: 13px; line-height:1.25; font-weight: 650; letter-spacing:.15px; }
+    .small{ display:flex; gap:8px; flex-wrap:wrap; color: var(--muted); font-size: 12px; align-items:center; }
+    .badge{ padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); }
+    .ownedMark{ position:absolute; top:10px; right:10px; background: rgba(94,234,212,.14);
+      border: 1px solid rgba(94,234,212,.35); color: var(--accent); padding: 4px 8px; border-radius: 999px;
+      font-size: 12px; font-weight: 650; display:none; z-index: 2; }
+
+    .card.not-owned img{ filter: grayscale(1) brightness(.55) contrast(.95); }
+    .card.not-owned::after{ content:""; position:absolute; inset:0;
+      background: radial-gradient(600px 240px at 50% 0%, rgba(0,0,0,.12), rgba(0,0,0,.55)); pointer-events:none; }
+    .card.owned{ border-color: rgba(94,234,212,.28); }
+    .card.owned .ownedMark{ display:block; }
+
+    .footer{ color: var(--muted); font-size: 12px; margin-top: 18px; line-height:1.5; }
+    .footer code{ color: #cbd5e1; }
+    dialog{ border: 1px solid rgba(255,255,255,.14); border-radius: 14px; background: rgba(10,14,20,.95); color: var(--text);
+      max-width: 900px; width: min(900px, 92vw); box-shadow: 0 22px 70px rgba(0,0,0,.6); }
+    dialog::backdrop{ background: rgba(0,0,0,.55); }
+    textarea{ width:100%; min-height: 220px; border-radius: 12px; padding: 10px; background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12); color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 12px; outline:none; box-sizing: border-box; }
+    .dlgActions{ display:flex; gap:10px; justify-content:flex-end; margin-top:10px; flex-wrap:wrap; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>萬代遊戲王卡收藏圖鑑（Bandai #001–#118 + TA1–TA5，全 123 張）</h1>
+    <div class="sub">
+      點一下卡片切換已擁有。未擁有會變暗；已擁有會點亮。<br>
+      含常規卡 118 張與劇場版/促銷特殊卡 5 張（TA1~TA5）。
+    </div>
+
+    <div class="toolbar">
+      <div class="pill"><label>搜尋</label><input id="q" type="search" placeholder="輸入編號或名稱，例如 009、TA1 或 Blue-Eyes" /></div>
+      <div class="pill"><label>顯示</label>
+        <select id="filter">
+          <option value="all">全部</option>
+          <option value="owned">只看已擁有</option>
+          <option value="missing">只看未擁有</option>
+        </select>
+      </div>
+      <div class="pill"><label>排序</label>
+        <select id="sort">
+          <option value="no-asc">編號（小→大）</option>
+          <option value="no-desc">編號（大→小）</option>
+          <option value="name-asc">英文名（A→Z）</option>
+        </select>
+      </div>
+      <button class="primary" id="exportBtn">匯出狀態 JSON</button>
+      <button id="importBtn">匯入狀態 JSON</button>
+      <button class="danger" id="resetBtn">全部清空（重置）</button>
+    </div>
+
+    <div class="stats">
+      <div><span id="countOwned">0</span> / <span id="countTotal">0</span> 已擁有</div>
+      <div class="bar" aria-hidden="true"><div id="barFill"></div></div>
+      <div id="pct">0%</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div id="grid" class="grid"></div>
+    <div class="footer">
+      完整清單收錄 123 張（#001-#118 + TA1-TA5）。若圖片檔名有特殊後綴，可以在程式碼中的 <code>SUFFIX</code> 變數直接修正。
+    </div>
+  </div>
+</main>
+
+<dialog id="dlg">
+  <form method="dialog">
+    <h3 style="margin: 0 0 10px;">JSON 匯出 / 匯入</h3>
+    <div class="sub" style="margin-bottom:10px;">
+      匯出：複製下面文字存起來。匯入：把之前匯出的 JSON 貼回來後按「套用匯入」。
+    </div>
+    <textarea id="jsonBox" spellcheck="false"></textarea>
+    <div class="dlgActions">
+      <button value="cancel">關閉</button>
+      <button id="applyImport" class="primary" value="default" type="button">套用匯入</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  // =========================================================
+  // 🛠️ 檔名格式設定 (如果圖片有名稱後綴，在這裡修改即可)
+  // =========================================================
+  const SUFFIX = "";       // 如果檔名是 001_yugioh.png，請改成 "_yugioh"
+  const EXT = ".png";      // 如果圖片是 jpg 檔，改為 ".jpg"
+  // =========================================================
+
+  // 123 張萬代版遊戲王卡片完整清單
+  const CARDS = [
+    {id:"001",no:1,en:"Yugi Muto",jp:"武藤遊戯",type:"Character Card"},
+    {id:"002",no:2,en:"Yugi Muto",jp:"武藤遊戯",type:"Character Card"},
+    {id:"003",no:3,en:"Joey Wheeler",jp:"城之内克也",type:"Character Card"},
+    {id:"004",no:4,en:"Seto Kaiba",jp:"海馬瀬人",type:"Character Card"},
+    {id:"005",no:5,en:"Tristan Taylor",jp:"本田ヒロト",type:"Character Card"},
+    {id:"006",no:6,en:"Téa Gardner",jp:"真崎杏子",type:"Character Card"},
+    {id:"007",no:7,en:"Melody",jp:"野坂ミホ",type:"Character Card"},
+    {id:"008",no:8,en:"Shadi",jp:"シャーディー",type:"Character Card"},
+    {id:"009",no:9,en:"Blue-Eyes White Dragon",jp:"青眼の白竜",type:"Monster Card"},
+    {id:"010",no:10,en:"Red-Eyes B. Dragon",jp:"真紅眼の黒竜",type:"Monster Card"},
+    {id:"011",no:11,en:"Gaia the Fierce Knight",jp:"暗黒騎士ガイア",type:"Monster Card"},
+    {id:"012",no:12,en:"Curse of Dragon",jp:"カース・オブ・ドラゴン",type:"Monster Card"},
+    {id:"013",no:13,en:"Gaia the Dragon Champion",jp:"竜騎士ガイア",type:"Monster Card"},
+    {id:"014",no:14,en:"Dark Magician",jp:"ブラック・マジシャン",type:"Monster Card"},
+    {id:"015",no:15,en:"Thousand Dragon",jp:"千年ドラゴン",type:"Monster Card"},
+    {id:"016",no:16,en:"Basic Insect",jp:"昆虫人間",type:"Monster Card"},
+    {id:"017",no:17,en:"Armored Basic Insect with Laser Cannon",jp:"火器付機甲鎧 昆虫人間",type:"Monster Card"},
+    {id:"018",no:18,en:"Harpie Lady 1",jp:"ハーピィ・レディ１",type:"Monster Card"},
+    {no:19,id:"019",en:"Megazowler",jp:"メガザウラー",type:"Monster Card"},
+    {no:20,id:"020",en:"Two-Headed King Rex",jp:"二頭を持つキング・レックス",type:"Monster Card"},
+    {no:21,id:"021",en:"Summoned Skull",jp:"デーモンの召喚",type:"Monster Card"},
+    {no:22,id:"022",en:"Aphrodite",jp:"アフロディーテ",type:"Monster Card"},
+    {no:23,id:"023",en:"Winged Dragon, Guardian of the Fortress #1",jp:"砦を守る翼竜",type:"Monster Card"},
+    {no:24,id:"024",en:"Blackland Fire Dragon",jp:"暗黒の竜王",type:"Monster Card"},
+    {no:25,id:"025",en:"Dragon Capture Jar",jp:"ドラゴン族・封印の壺",type:"Monster Card"},
+    {no:26,id:"026",en:"Judge Man",jp:"ジャッジ・マン",type:"Monster Card"},
+    {no:27,id:"027",en:"Celtic Guardian",jp:"エルフの剣士",type:"Monster Card"},
+    {no:28,id:"028",en:"Baby Dragon",jp:"ベビードラゴン",type:"Monster Card"},
+    {no:29,id:"029",en:"Silver Fang",jp:"シルバー・フォング",type:"Monster Card"},
+    {no:30,id:"030",en:"Saggi the Dark Clown",jp:"闇・道化師のサギー",type:"Monster Card"},
+    {no:31,id:"031",en:"Rogue Doll",jp:"ホーリー・ドール",type:"Monster Card"},
+    {no:32,id:"032",en:"Mushroom Man",jp:"マッシュマン",type:"Monster Card"},
+    {no:33,id:"033",en:"Greater Mammoth",jp:"マンモスの墓場",type:"Monster Card"},
+    {no:34,id:"034",en:"Dark Gray",jp:"ダーク・グレー",type:"Monster Card"},
+    {no:35,id:"035",en:"Black Demon's Dragon",jp:"ブラック・デーモンズ・ドラゴン",type:"Monster Card"},
+    {no:36,id:"036",en:"Monster Reborn",jp:"死者蘇生",type:"Spell Card"},
+    {no:37,id:"037",en:"Spellbinding Circle",jp:"六芒星の呪符",type:"Spell Card"},
+    {no:38,id:"038",en:"Stop Defense",jp:"守備封印",type:"Spell Card"},
+    {no:39,id:"039",en:"Swords of Revealing Light",jp:"光の護封剣",type:"Spell Card"},
+    {no:40,id:"040",en:"Violent Rain",jp:"恵みの雨",type:"Spell Card"},
+    {no:41,id:"041",en:"Cardian",jp:"魔術師の教え",type:"Spell Card"},
+    {no:42,id:"042",en:"Shadow Spell",jp:"影の呪縛",type:"Spell Card"},
+    {no:43,id:"043",en:"Metalmorph",jp:"メタル化・魔法反射装甲",type:"Spell Card"},
+    {no:44,id:"044",en:"Multiply",jp:"増殖",type:"Spell Card"},
+    {no:45,id:"045",en:"Polymerization",jp:"融合",type:"Spell Card"},
+    {no:46,id:"046",en:"Laser Cannon Armor",jp:"レーザー砲機甲鎧",type:"Spell Card"},
+    {no:47,id:"047",en:"Vile Germs",jp:"悪魔の胞子",type:"Spell Card"},
+    {no:48,id:"048",en:"Cyber Shield",jp:"サイバー・ボンンテージ",type:"Spell Card"},
+    {no:49,id:"049",en:"Elegance of Harpie Lady",jp:"華麗なるハーピィ・レディ",type:"Spell Card"},
+    {no:50,id:"050",en:"Labyrinth Wall",jp:"迷宮壁－ラビリンス・ウォール－",type:"Monster Card"},
+    {no:51,id:"051",en:"Wall Shadow",jp:"ウォール・シャドウ",type:"Monster Card"},
+    {no:52,id:"052",en:"Magical Labyrinth",jp:"魔導の迷宮",type:"Spell Card"},
+    {no:53,id:"053",en:"Shadow Ghoul",jp:"ダンジョン・ワーム",type:"Monster Card"},
+    {no:54,id:"054",en:"Labyrinth Tank",jp:"迷宮の魔戦士",type:"Monster Card"},
+    {no:55,id:"055",en:"Cannon Soldier",jp:"キャノン・ソルジャー",type:"Monster Card"},
+    {no:56,id:"056",en:"Sanga of the Thunder",jp:"雷魔神－サンガ",type:"Monster Card"},
+    {no:57,id:"057",en:"Kazejin",jp:"風魔神－ヒューガ",type:"Monster Card"},
+    {no:58,id:"058",en:"Suijin",jp:"水魔神－スーガ",type:"Monster Card"},
+    {no:59,id:"059",en:"Gate Guardian",jp:"ゲート・ガーディアン",type:"Monster Card"},
+    {no:60,id:"060",en:"Koumori Dragon",jp:"コウモリ・ドラゴン",type:"Monster Card"},
+    {no:61,id:"061",en:"Two-Mouth Darkruler",jp:"二つの頭を持つダーク・キング",type:"Monster Card"},
+    {no:62,id:"062",en:"Fiend's Hand",jp:"悪魔の手に招かれし者",type:"Monster Card"},
+    {no:63,id:"063",en:"Tyhone",jp:"タイホーン",type:"Monster Card"},
+    {no:64,id:"064",en:"Beaver Warrior",jp:"ルイズ",type:"Monster Card"},
+    {no:65,id:"065",en:"Giant Soldier of Stone",jp:"岩石の巨兵",type:"Monster Card"},
+    {no:66,id:"066",en:"Zombie Warrior",jp:"アンデット・ウォーリアー",type:"Monster Card"},
+    {no:67,id:"067",en:"Kattapillar",jp:"キャタピラー",type:"Monster Card"},
+    {no:68,id:"068",en:"Feral Imp",jp:"グレムリン",type:"Monster Card"},
+    {no:69,id:"069",en:"Gargoyle",jp:"ガーゴイル",type:"Monster Card"},
+    {no:70,id:"070",en:"Monster Egg",jp:"モンスター・エッグ",type:"Monster Card"},
+    {no:71,id:"071",en:"Claw Reacher",jp:"ドクロの寺院",type:"Monster Card"},
+    {no:72,id:"072",en:"Hane-Hane",jp:"ハネハネ",type:"Monster Card"},
+    {no:73,id:"073",en:"Kazejin (Variant)",jp:"風魔神－ヒューガ",type:"Monster Card"},
+    {no:74,id:"074",en:"Suijin (Variant)",jp:"水魔神－スーガ",type:"Monster Card"},
+    {no:75,id:"075",en:"Sanga of the Thunder (Variant)",jp:"雷魔神－サンガ",type:"Monster Card"},
+    {no:76,id:"076",en:"Time Wizard",jp:"時の魔術師",type:"Monster Card"},
+    {no:77,id:"077",en:"Right Leg of the Forbidden One",jp:"封印されし者の右足",type:"Monster Card"},
+    {no:78,id:"078",en:"Left Leg of the Forbidden One",jp:"封印されし者の左足",type:"Monster Card"},
+    {no:79,id:"079",en:"Right Arm of the Forbidden One",jp:"封印されし者の右腕",type:"Monster Card"},
+    {no:80,id:"080",en:"Left Arm of the Forbidden One",jp:"封印されし者の左腕",type:"Monster Card"},
+    {no:81,id:"081",en:"Exodia the Forbidden One",jp:"封印されしエグゾディア",type:"Monster Card"},
+    {no:82,id:"082",en:"Blue-Eyes White Dragon 3-Burst Stream",jp:"青眼の白竜３体連結",type:"Monster Card"},
+    {no:83,id:"083",en:"Blue-Eyes White Dragon",jp:"青眼の白竜",type:"Monster Card"},
+    {no:84,id:"084",en:"Blue-Eyes White Dragon",jp:"青眼の白竜",type:"Monster Card"},
+    {no:85,id:"085",en:"Blue-Eyes White Dragon",jp:"青眼の白竜",type:"Monster Card"},
+    {no:86,id:"086",en:"Red-Eyes B. Dragon",jp:"真紅眼の黒竜",type:"Monster Card"},
+    {no:87,id:"087",en:"B. Dragon Jungle King",jp:"ドラゴン・ゾンビ",type:"Monster Card"},
+    {no:88,id:"088",en:"Meteor Dragon",jp:"メテオ・ドラゴン",type:"Monster Card"},
+    {no:89,id:"089",en:"Meteor Black Dragon",jp:"メテオ・ブラック・ドラゴン",type:"Monster Card"},
+    {no:90,id:"090",en:"Clash! Strongest Monster",jp:"激突！最強モンスター",type:"Special Card"},
+    {no:91,id:"091",en:"Blue-Eyes White Dragon (English)",jp:"青眼の白竜 (英語)",type:"Monster Card"},
+    {no:92,id:"092",en:"Red-Eyes B. Dragon (English)",jp:"真紅眼の黒竜 (英語)",type:"Monster Card"},
+    {no:93,id:"093",en:"Gaia the Fierce Knight (English)",jp:"暗黒騎士ガイア (英語)",type:"Monster Card"},
+    {no:94,id:"094",en:"Curse of Dragon (English)",jp:"カース・オブ・ドラゴン (英語)",type:"Monster Card"},
+    {no:95,id:"095",en:"Dark Magician (English)",jp:"ブラック・マジシャン (英語)",type:"Monster Card"},
+    {no:96,id:"096",en:"Summoned Skull (English)",jp:"デーモンの召喚 (英語)",type:"Monster Card"},
+    {no:97,id:"097",en:"Celtic Guardian (English)",jp:"エルフの剣士 (英語)",type:"Monster Card"},
+    {no:98,id:"098",en:"Monster Reborn (English)",jp:"死者蘇生 (英語)",type:"Spell Card"},
+    {no:99,id:"099",en:"Spellbinding Circle (English)",jp:"六芒星の呪符 (英語)",type:"Spell Card"},
+    {no:100,id:"100",en:"Swords of Revealing Light (English)",jp:"光の護封剣 (英語)",type:"Spell Card"},
+    {no:101,id:"101",en:"Yugi Muto & Yami Yugi",jp:"武藤遊戯＆闇遊戯",type:"Character Card"},
+    {no:102,id:"102",en:"Joey Wheeler & Tristan Taylor",jp:"城之内克也＆本田ヒロト",type:"Character Card"},
+    {no:103,id:"103",en:"Téa Gardner & Melody",jp:"真崎杏子＆野坂ミホ",type:"Character Card"},
+    {no:104,id:"104",en:"Seto Kaiba & Mokuba Kaiba",jp:"海馬瀬人＆海馬モクバ",type:"Character Card"},
+    {no:105,id:"105",en:"Shadi & Bakura",jp:"シャーディー＆獏良了",type:"Character Card"},
+    {no:106,id:"106",en:"Miho Nosaka",jp:"野坂ミホ",type:"Character Card"},
+    {no:107,id:"107",en:"Mokuba Kaiba",jp:"海馬モクバ",type:"Character Card"},
+    {no:108,id:"108",en:"Ryo Bakura",jp:"獏良了",type:"Character Card"},
+    {no:109,id:"109",en:"Yami Yugi",jp:"闇遊戯",type:"Character Card"},
+    {no:110,id:"110",en:"Seto Kaiba",jp:"海馬瀬人",type:"Character Card"},
+    {no:111,id:"111",en:"Blue-Eyes White Dragon",jp:"青眼の白竜",type:"Monster Card"},
+    {no:112,id:"112",en:"Blue-Eyes White Dragon",jp:"青眼の白竜",type:"Monster Card"},
+    {no:113,id:"113",en:"Blue-Eyes White Dragon",jp:"青眼の白竜",type:"Monster Card"},
+    {no:114,id:"114",en:"Wicked Worm Beast",jp:"魔導電子ボット",type:"Monster Card"},
+    {no:115,id:"115",en:"Bandit Keith",jp:"バンデット・キース",type:"Character Card"},
+    {no:116,id:"116",en:"Maximillion Pegasus",jp:"ペガサス・J・クロフォード",type:"Character Card"},
+    {no:117,id:"117",en:"Yugi & Friends",jp:"遊戯＆仲間たち",type:"Character Card"},
+    {no:118,id:"118",en:"Secret Rules Card",jp:"秘密のルールカード",type:"Special Card"},
+    // 特殊卡片 (TA1 - TA5 劇場版/促銷卡)
+    {no:119,id:"TA1",en:"Blue-Eyes White Dragon (TA1)",jp:"青眼の白竜 (劇場限定)",type:"Promo Card"},
+    {no:120,id:"TA2",en:"Wicked Dragon with 3 Heads (TA2)",jp:"三頭の悪魔竜 (劇場限定)",type:"Promo Card"},
+    {no:121,id:"TA3",en:"Black Demon's Dragon (TA3)",jp:"ブラック・デーモンズ・ドラゴン (劇場限定)",type:"Promo Card"},
+    {no:122,id:"TA4",en:"Meteor Black Dragon (TA4)",jp:"メテオ・ブラック・ドラゴン (劇場限定)",type:"Promo Card"},
+    {no:123,id:"TA5",en:"Blue-Eyes White Dragon 3-Burst Stream (TA5)",jp:"青眼の白竜３体連結 (劇場限定)",type:"Promo Card"}
+  ];
+
+  // 自動動態產出圖片路徑，並套用後綴 SUFFIX 與副檔名 EXT
+  CARDS.forEach(c => {
+    c.imageUrl = `images/${c.id}${SUFFIX}${EXT}`;
+  });
+
+  // 本地儲存與狀態管理
+  const STORAGE_KEY = "bandai_yugioh_collection_123";
+  let ownedSet = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...ownedSet]));
+  }
+
+  // DOM 元素綁定
+  const gridEl = document.getElementById("grid");
+  const qEl = document.getElementById("q");
+  const filterEl = document.getElementById("filter");
+  const sortEl = document.getElementById("sort");
+  const countOwnedEl = document.getElementById("countOwned");
+  const countTotalEl = document.getElementById("countTotal");
+  const barFillEl = document.getElementById("barFill");
+  const pctEl = document.getElementById("pct");
+
+  function render() {
+    const q = qEl.value.trim().toLowerCase();
+    const filter = filterEl.value;
+    const sort = sortEl.value;
+
+    let list = CARDS.filter(c => {
+      const isOwned = ownedSet.has(c.id);
+      if (filter === "owned" && !isOwned) return false;
+      if (filter === "missing" && isOwned) return false;
+
+      if (!q) return true;
+      return c.id.toLowerCase().includes(q) || 
+             c.en.toLowerCase().includes(q) || 
+             c.jp.toLowerCase().includes(q);
+    });
+
+    list.sort((a, b) => {
+      if (sort === "no-asc") return a.no - b.no;
+      if (sort === "no-desc") return b.no - a.no;
+      if (sort === "name-asc") return a.en.localeCompare(b.en);
+      return 0;
+    });
+
+    gridEl.innerHTML = "";
+    list.forEach(c => {
+      const isOwned = ownedSet.has(c.id);
+      const card = document.createElement("div");
+      card.className = `card ${isOwned ? "owned" : "not-owned"}`;
+      
+      const imgHtml = `<img src="${c.imageUrl}" alt="${c.en}" onerror="this.outerHTML='<div class=\\'placeholder\\'>尚未圖片<br>#${c.id}</div>'">`;
+
+      card.innerHTML = `
+        <div class="ownedMark">✓ 已擁有</div>
+        <div class="thumb">${imgHtml}</div>
+        <div class="meta">
+          <div class="title">#${c.id} ${c.en}</div>
+          <div class="small">
+            <span class="badge">${c.type || 'Card'}</span>
+            <span>${c.jp}</span>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        if (ownedSet.has(c.id)) {
+          ownedSet.delete(c.id);
+        } else {
+          ownedSet.add(c.id);
+        }
+        saveState();
+        render();
+      });
+
+      gridEl.appendChild(card);
+    });
+
+    const ownedCount = CARDS.filter(c => ownedSet.has(c.id)).length;
+    const totalCount = CARDS.length;
+    const pct = totalCount ? Math.round((ownedCount / totalCount) * 100) : 0;
+
+    countOwnedEl.textContent = ownedCount;
+    countTotalEl.textContent = totalCount;
+    barFillEl.style.width = pct + "%";
+    pctEl.textContent = pct + "%";
+  }
+
+  qEl.addEventListener("input", render);
+  filterEl.addEventListener("change", render);
+  sortEl.addEventListener("change", render);
+
+  const dlg = document.getElementById("dlg");
+  const jsonBox = document.getElementById("jsonBox");
+
+  document.getElementById("exportBtn").addEventListener("click", () => {
+    jsonBox.value = JSON.stringify([...ownedSet], null, 2);
+    dlg.showModal();
+  });
+
+  document.getElementById("importBtn").addEventListener("click", () => {
+    jsonBox.value = "";
+    dlg.showModal();
+  });
+
+  document.getElementById("applyImport").addEventListener("click", () => {
+    try {
+      const arr = JSON.parse(jsonBox.value);
+      if (Array.isArray(arr)) {
+        ownedSet = new Set(arr);
+        saveState();
+        render();
+        dlg.close();
+      } else {
+        alert("格式錯誤：請輸入正確的 JSON 陣列格式。");
+      }
+    } catch (e) {
+      alert("解析失敗，請確認貼入的 JSON 內容是否正確。");
+    }
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if (confirm("確定要重置所有收藏紀錄嗎？")) {
+      ownedSet.clear();
+      saveState();
+      render();
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>
