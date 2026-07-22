@@ -12,29 +12,32 @@
     }
     body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
       background: radial-gradient(1200px 800px at 30% 0%, #18233a 0%, var(--bg) 55%); color:var(--text); }
-    header{ position: sticky; top:0; z-index: 10; backdrop-filter: blur(10px);
-      background: color-mix(in oklab, var(--bg) 70%, transparent); border-bottom: 1px solid rgba(255,255,255,.08); }
-    .wrap{ max-width: 1200px; margin:0 auto; padding: 16px 16px 22px; }
-    h1{ font-size: 18px; margin: 0 0 6px; letter-spacing:.2px; }
-    .sub{ color: var(--muted); font-size: 13px; line-height:1.4; }
-    .toolbar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:12px; }
+    
+    header{ z-index: 10; background: color-mix(in oklab, var(--bg) 85%, transparent); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .wrap{ max-width: 1200px; margin:0 auto; padding: 12px 16px 16px; }
+    h1{ font-size: 16px; margin: 0 0 4px; letter-spacing:.2px; }
+    .sub{ color: var(--muted); font-size: 12px; line-height:1.3; }
+    
+    .toolbar{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px; }
     .pill{ background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
-      padding: 8px 10px; border-radius: 999px; display:flex; gap:10px; align-items:center; }
-    .pill label{ color: var(--muted); font-size: 12px; }
-    input[type="search"]{ width: 240px; max-width: 60vw; background: transparent; border: none; color: var(--text);
-      outline: none; font-size: 14px; }
+      padding: 6px 10px; border-radius: 999px; display:flex; gap:6px; align-items:center; }
+    .pill label{ color: var(--muted); font-size: 12px; white-space: nowrap; }
+    input[type="search"]{ width: 180px; max-width: 40vw; background: transparent; border: none; color: var(--text);
+      outline: none; font-size: 13px; }
     select, button{ background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
-      color: var(--text); border-radius: 10px; padding: 9px 10px; font-size: 13px; cursor:pointer; }
+      color: var(--text); border-radius: 8px; padding: 6px 8px; font-size: 12px; cursor:pointer; }
     button.primary{ border-color: color-mix(in oklab, var(--accent) 35%, rgba(255,255,255,.10));
       background: color-mix(in oklab, var(--accent) 18%, rgba(255,255,255,.06)); }
     button.danger{ border-color: color-mix(in oklab, var(--danger) 35%, rgba(255,255,255,.10));
       background: color-mix(in oklab, var(--danger) 16%, rgba(255,255,255,.06)); }
-    main .wrap{ padding-top: 14px; }
-    .stats{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; color: var(--muted); font-size: 13px; margin: 10px 0 14px; }
-    .bar{ height: 10px; width: 240px; max-width: 70vw; border-radius: 999px; background: rgba(255,255,255,.08);
+    
+    main .wrap{ padding-top: 10px; }
+    .stats{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; color: var(--muted); font-size: 12px; margin: 8px 0 10px; }
+    .bar{ height: 8px; width: 180px; max-width: 50vw; border-radius: 999px; background: rgba(255,255,255,.08);
       overflow:hidden; border: 1px solid rgba(255,255,255,.10); }
     .bar > div{ height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.3s ease; }
-    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(var(--cardW), 1fr)); gap: 14px; }
+    
+    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(var(--cardW), 1fr)); gap: 12px; }
     .card{ background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.10); border-radius: var(--radius); overflow:hidden; cursor:pointer;
       transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
@@ -44,13 +47,13 @@
       display:flex; align-items:center; justify-content:center; position:relative; }
     .thumb img{ width: 100%; height: 100%; object-fit: cover; display:block; }
     .thumb .placeholder{ padding: 10px; color: rgba(255,255,255,.75); text-align:center; font-size: 12px; line-height:1.35; }
-    .meta{ padding: 10px 10px 12px; display:flex; flex-direction:column; gap:6px; background: color-mix(in oklab, var(--panel2) 70%, transparent); }
-    .title{ font-size: 13px; line-height:1.25; font-weight: 650; letter-spacing:.15px; }
-    .small{ display:flex; gap:8px; flex-wrap:wrap; color: var(--muted); font-size: 12px; align-items:center; }
-    .badge{ padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); }
-    .ownedMark{ position:absolute; top:10px; right:10px; background: rgba(94,234,212,.14);
-      border: 1px solid rgba(94,234,212,.35); color: var(--accent); padding: 4px 8px; border-radius: 999px;
-      font-size: 12px; font-weight: 650; display:none; z-index: 2; }
+    .meta{ padding: 8px 8px 10px; display:flex; flex-direction:column; gap:4px; background: color-mix(in oklab, var(--panel2) 70%, transparent); }
+    .title{ font-size: 12px; line-height:1.2; font-weight: 650; letter-spacing:.15px; }
+    .small{ display:flex; gap:6px; flex-wrap:wrap; color: var(--muted); font-size: 11px; align-items:center; }
+    .badge{ padding: 1px 6px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); }
+    .ownedMark{ position:absolute; top:6px; right:6px; background: rgba(94,234,212,.14);
+      border: 1px solid rgba(94,234,212,.35); color: var(--accent); padding: 2px 6px; border-radius: 999px;
+      font-size: 11px; font-weight: 650; display:none; z-index: 2; backdrop-filter: blur(4px); }
 
     .card.not-owned img{ filter: grayscale(1) brightness(.55) contrast(.95); }
     .card.not-owned::after{ content:""; position:absolute; inset:0;
@@ -67,36 +70,47 @@
       border: 1px solid rgba(255,255,255,.12); color: var(--text);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 12px; outline:none; box-sizing: border-box; }
     .dlgActions{ display:flex; gap:10px; justify-content:flex-end; margin-top:10px; flex-wrap:wrap; }
+
+    /* 📱 手機版專屬優化 */
+    @media (max-width: 600px) {
+      .wrap{ padding: 10px 10px 14px; }
+      .sub{ display: none; } /* 隱藏說明省空間 */
+      h1{ font-size: 15px; }
+      .grid{ grid-template-columns: repeat(2, 1fr); gap: 8px; } /* 固定兩欄 */
+      .toolbar{ gap: 6px; }
+      .pill{ padding: 4px 8px; }
+      input[type="search"]{ width: 100px; }
+    }
   </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <h1>萬代遊戲王卡收藏圖鑑（Bandai #001–#118 + TA1–TA5，全 123 張）</h1>
+    <h1>萬代遊戲王卡圖鑑 (全 123 張)</h1>
     <div class="sub">
       點一下卡片切換已擁有。未擁有會變暗；已擁有會點亮。<br>
       含常規卡 118 張與劇場版/促銷特殊卡 5 張（TA1~TA5）。
     </div>
 
     <div class="toolbar">
-      <div class="pill"><label>搜尋</label><input id="q" type="search" placeholder="輸入編號或名稱，例如 009、TA1 或 Blue-Eyes" /></div>
-      <div class="pill"><label>顯示</label>
+      <div class="pill"><label>搜尋</label><input id="q" type="search" placeholder="編號/名稱" /></div>
+      <div class="pill">
         <select id="filter">
           <option value="all">全部</option>
-          <option value="owned">只看已擁有</option>
-          <option value="missing">只看未擁有</option>
+          <option value="owned">已擁有</option>
+          <option value="missing">未擁有</option>
         </select>
       </div>
-      <div class="pill"><label>排序</label>
+      <div class="pill">
         <select id="sort">
-          <option value="no-asc">編號（小→大）</option>
-          <option value="no-desc">編號（大→小）</option>
-          <option value="name-asc">英文名（A→Z）</option>
+          <option value="no-asc">編號↑</option>
+          <option value="no-desc">編號↓</option>
+          <option value="name-asc">英文 A-Z</option>
         </select>
       </div>
-      <button class="primary" id="exportBtn">匯出狀態 JSON</button>
-      <button id="importBtn">匯入狀態 JSON</button>
-      <button class="danger" id="resetBtn">全部清空（重置）</button>
+      <button class="primary" id="exportBtn">匯出</button>
+      <button id="importBtn">匯入</button>
+      <button class="danger" id="resetBtn">重置</button>
     </div>
 
     <div class="stats">
@@ -111,7 +125,7 @@
   <div class="wrap">
     <div id="grid" class="grid"></div>
     <div class="footer">
-      完整清單收錄 123 張（#001-#118 + TA1-TA5）。若圖片檔名有特殊後綴，可以在程式碼中的 <code>SUFFIX</code> 變數直接修正。
+      完整清單收錄 123 張（#001-#118 + TA1-TA5）。若圖片檔名有特殊後綴，可在程式碼中修改 `SUFFIX`。
     </div>
   </div>
 </main>
@@ -132,10 +146,10 @@
 
 <script>
   // =========================================================
-  // 🛠️ 檔名格式設定 (如果圖片有名稱後綴，在這裡修改即可)
+  // 🛠️ 檔名格式設定
   // =========================================================
-  const SUFFIX = "";       // 如果檔名是 001_yugioh.png，請改成 "_yugioh"
-  const EXT = ".png";      // 如果圖片是 jpg 檔，改為 ".jpg"
+  const SUFFIX = "";        // 如果檔名是 001_yugioh.png，改為 "_yugioh"
+  const EXT = ".png";       // 如果圖片是 jpg 檔，改為 ".jpg"
   // =========================================================
 
   // 123 張萬代版遊戲王卡片完整清單
@@ -258,7 +272,6 @@
     {no:116,id:"116",en:"Maximillion Pegasus",jp:"ペガサス・J・クロフォード",type:"Character Card"},
     {no:117,id:"117",en:"Yugi & Friends",jp:"遊戯＆仲間たち",type:"Character Card"},
     {no:118,id:"118",en:"Secret Rules Card",jp:"秘密のルールカード",type:"Special Card"},
-    // 特殊卡片 (TA1 - TA5 劇場版/促銷卡)
     {no:119,id:"TA1",en:"Blue-Eyes White Dragon (TA1)",jp:"青眼の白竜 (劇場限定)",type:"Promo Card"},
     {no:120,id:"TA2",en:"Wicked Dragon with 3 Heads (TA2)",jp:"三頭の悪魔竜 (劇場限定)",type:"Promo Card"},
     {no:121,id:"TA3",en:"Black Demon's Dragon (TA3)",jp:"ブラック・デーモンズ・ドラゴン (劇場限定)",type:"Promo Card"},
@@ -266,12 +279,10 @@
     {no:123,id:"TA5",en:"Blue-Eyes White Dragon 3-Burst Stream (TA5)",jp:"青眼の白竜３体連結 (劇場限定)",type:"Promo Card"}
   ];
 
-  // 自動動態產出圖片路徑，並套用後綴 SUFFIX 與副檔名 EXT
   CARDS.forEach(c => {
     c.imageUrl = `images/${c.id}${SUFFIX}${EXT}`;
   });
 
-  // 本地儲存與狀態管理
   const STORAGE_KEY = "bandai_yugioh_collection_123";
   let ownedSet = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
 
@@ -279,7 +290,6 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify([...ownedSet]));
   }
 
-  // DOM 元素綁定
   const gridEl = document.getElementById("grid");
   const qEl = document.getElementById("q");
   const filterEl = document.getElementById("filter");
@@ -318,7 +328,7 @@
       const card = document.createElement("div");
       card.className = `card ${isOwned ? "owned" : "not-owned"}`;
       
-      const imgHtml = `<img src="${c.imageUrl}" alt="${c.en}" onerror="this.outerHTML='<div class=\\'placeholder\\'>尚未圖片<br>#${c.id}</div>'">`;
+      const imgHtml = `<img src="${c.imageUrl}" alt="${c.en}" onerror="this.outerHTML='<div class=\\'placeholder\\'>無圖片<br>#${c.id}</div>'">`;
 
       card.innerHTML = `
         <div class="ownedMark">✓ 已擁有</div>
