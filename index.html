@@ -72,15 +72,23 @@
     .dlgActions{ display:flex; gap:10px; justify-content:flex-end; margin-top:10px; flex-wrap:wrap; }
 
     /* 📱 手機版專屬優化 */
-    @media (max-width: 600px) {
-      .wrap{ padding: 10px 10px 14px; }
-      .sub{ display: none; } /* 隱藏說明省空間 */
-      h1{ font-size: 15px; }
-      .grid{ grid-template-columns: repeat(2, 1fr); gap: 8px; } /* 固定兩欄 */
-      .toolbar{ gap: 6px; }
-      .pill{ padding: 4px 8px; }
-      input[type="search"]{ width: 100px; }
-    }
+@media (max-width: 600px) {
+  .wrap{ padding: 10px 10px 14px; }
+  .sub{ display: none; }
+  h1{ font-size: 15px; }
+
+  /* 手機版固定每排三張卡片 */
+  .grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .card{ min-width: 0; }
+  .title{ overflow-wrap: anywhere; }
+  .toolbar{ gap: 6px; }
+  .pill{ padding: 4px 8px; }
+  input[type="search"]{ width: 100px; }
+}
   </style>
 </head>
 <body>
